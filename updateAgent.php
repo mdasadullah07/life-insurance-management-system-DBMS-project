@@ -27,6 +27,13 @@ input[type=submit]:hover {
     background-color: #45a049;
 }
 
+.btn{
+	background-color: #4CAF50;
+	float: right;
+	color:white;
+	text-decoration:none;	
+}
+
 
 table {
     font-family: arial, sans-serif;
@@ -46,7 +53,7 @@ tr:nth-child(even) {
 </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add Agent</title>
+    <title>Update Agent</title>
     <!-- BOOTSTRAP STYLES-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONTAWESOME STYLES-->
@@ -65,22 +72,44 @@ tr:nth-child(even) {
             
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="page-head-line">Add Agent</h1>
-						
+                        <h1 class="page-head-line">Update Agent
+						<button class="btn" align="center"> 
+                        <a href="addAgent.php" class="btn">Add Agent</a>
+                        </button>
+						</h1>
                     
                 
-
-<form action="insertagent.php" method="post">
-Agent ID:        <input type="text" name="agent_id" required><br>
-Agent Password:  <input type="text" name="agent_password" required><br>
-Name:            <input type="text" name="name" required><br>
-Branch:          <input type="text" name="branch" required><br>
-Phone:           <input type="text" name="phone" required><br>
-
-<input type="submit">
-</form>
 				
-				
+
+<?php 
+
+include'connection.php';
+
+
+	$agent_id = $agent_password = $name = $branch = $phone = "";
+	
+	if($_SERVER["REQUEST_METHOD"] == "POST"){
+		
+		$agent_id        = $_POST["agent_id"];
+		$agent_password  = $_POST["agent_password"];
+		$name            = $_POST["name"];
+		$branch          = $_POST["branch"];
+		$phone           = $_POST["phone"];
+		
+	}
+	
+	$sql = "UPDATE agent set name='$name' ,agent_password='$agent_password' ,branch='$branch' ,phone='$phone' where agent_id='$agent_id'";
+		
+		if ($conn->query($sql) === true) {
+			echo "Record updated successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+		
+?>
+
+
+			
 
                 </div>
 
@@ -91,6 +120,9 @@ Phone:           <input type="text" name="phone" required><br>
 
     </div>
     <!-- /. WRAPPER  -->
+
+   
+    
 
 
 </body>

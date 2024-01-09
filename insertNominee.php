@@ -27,6 +27,13 @@ input[type=submit]:hover {
     background-color: #45a049;
 }
 
+.btn{
+	background-color: #4CAF50;
+	float: right;
+	color:white;
+	text-decoration:none;	
+}
+
 
 table {
     font-family: arial, sans-serif;
@@ -46,7 +53,7 @@ tr:nth-child(even) {
 </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add Agent</title>
+    <title>Insert Nominee</title>
     <!-- BOOTSTRAP STYLES-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONTAWESOME STYLES-->
@@ -65,22 +72,37 @@ tr:nth-child(even) {
             
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="page-head-line">Add Agent</h1>
-						
+                        <h1 class="page-head-line">Insert Nominee
+						<button class="btn" align="center"> 
+                        <a href="addNominee.php" class="btn">Add Nominee</a>
+                        </button>
+						</h1>
                     
-                
+<?php
+	
+include'connection.php';
+        
+		$nominee_id      = $_POST["nominee_id"];
+	    $client_id       = $_POST["client_id"];
+		$name            = $_POST["name"];
+		$sex             = $_POST["sex"];
+		$birth_date      = $_POST["birth_date"];
+		$nid             = $_POST["nid"];
+		$relationship    = $_POST["relationship"];
+		$priority        = $_POST["priority"];
+		$phone           = $_POST["phone"];
+		
+	
+		
+	$sql = "INSERT INTO nominee "."VALUES('$nominee_id', '$client_id', '$name', '$sex', '$birth_date', '$nid', '$relationship', '$priority', '$phone')";
+	
+	if ($conn->query($sql) === true) {
+			echo "New Nominee ADDED";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
 
-<form action="insertagent.php" method="post">
-Agent ID:        <input type="text" name="agent_id" required><br>
-Agent Password:  <input type="text" name="agent_password" required><br>
-Name:            <input type="text" name="name" required><br>
-Branch:          <input type="text" name="branch" required><br>
-Phone:           <input type="text" name="phone" required><br>
-
-<input type="submit">
-</form>
-				
-				
+?>
 
                 </div>
 
@@ -91,7 +113,6 @@ Phone:           <input type="text" name="phone" required><br>
 
     </div>
     <!-- /. WRAPPER  -->
-
 
 </body>
 </html>

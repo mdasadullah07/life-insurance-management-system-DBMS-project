@@ -46,7 +46,7 @@ tr:nth-child(even) {
 </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add Agent</title>
+    <title>Add Payment</title>
     <!-- BOOTSTRAP STYLES-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONTAWESOME STYLES-->
@@ -59,27 +59,34 @@ tr:nth-child(even) {
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 <?php include 'header.php'; 
+$uniqueId = time().'_'.mt_rand();
+if(isset($_GET["client_id"])){
+$client_id       = $_GET["client_id"];
+}else{ $client_id="";
+}
 ?>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
             
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="page-head-line">Add Agent</h1>
+                        <h1 class="page-head-line">Add Payment</h1>
 						
                     
                 
 
-<form action="insertagent.php" method="post">
-Agent ID:        <input type="text" name="agent_id" required><br>
-Agent Password:  <input type="text" name="agent_password" required><br>
-Name:            <input type="text" name="name" required><br>
-Branch:          <input type="text" name="branch" required><br>
-Phone:           <input type="text" name="phone" required><br>
+<form action="insertPayment.php" method="post">
+
+Recipt No:     <input type="text" name="recipt_no" value="<?php echo"$uniqueId"; ?>" required><br>
+Client Id:     <input type="text" name="client_id" value="<?php echo"$client_id"; ?>" required><br>
+Month:         <input type="text" name="month" required><br>
+Amount:        <input type="text" name="amount" required><br>
+Due:           <input type="text" name="due" required><br>
+Fine:          <input type="text" name="fine" required><br>
+Agent Id:      <input type="text" name="agent_id" value="<?php echo $_SESSION["username"]; ?>" required><br>
 
 <input type="submit">
 </form>
-				
 				
 
                 </div>

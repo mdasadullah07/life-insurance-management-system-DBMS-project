@@ -27,6 +27,13 @@ input[type=submit]:hover {
     background-color: #45a049;
 }
 
+.btn{
+	background-color: #4CAF50;
+	float: right;
+	color:white;
+	text-decoration:none;	
+}
+
 
 table {
     font-family: arial, sans-serif;
@@ -46,7 +53,7 @@ tr:nth-child(even) {
 </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add Agent</title>
+    <title>Insert Payment</title>
     <!-- BOOTSTRAP STYLES-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONTAWESOME STYLES-->
@@ -65,24 +72,37 @@ tr:nth-child(even) {
             
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="page-head-line">Add Agent</h1>
-						
+                        <h1 class="page-head-line">Insert Payment
+						<button class="btn" align="center"> 
+                        <a href="addPayment.php" class="btn">Add Payment</a>
+                        </button>
+						</h1>
                     
-                
+<?php
 
-<form action="insertagent.php" method="post">
-Agent ID:        <input type="text" name="agent_id" required><br>
-Agent Password:  <input type="text" name="agent_password" required><br>
-Name:            <input type="text" name="name" required><br>
-Branch:          <input type="text" name="branch" required><br>
-Phone:           <input type="text" name="phone" required><br>
+include'connection.php';
 
-<input type="submit">
-</form>
-				
-				
+	    $recipt_no      = $_POST["recipt_no"];
+		$client_id      = $_POST["client_id"];
+		$month          = $_POST["month"];
+		$amount         = $_POST["amount"];
+		$fine           = $_POST["fine"];
+		$due            = $_POST["due"];
+		$agent_id       = $_POST["agent_id"];
+		
+		
 
-                </div>
+	$sql = "INSERT INTO payment "."VALUES('$recipt_no', '$client_id', '$month', '$amount', '$fine', '$due','$agent_id')";
+	
+	if ($conn->query($sql) === true) {
+			echo "New Payment ADDED";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+	
+?>
+
+             </div>
 
             
         </div>
@@ -91,7 +111,6 @@ Phone:           <input type="text" name="phone" required><br>
 
     </div>
     <!-- /. WRAPPER  -->
-
 
 </body>
 </html>
